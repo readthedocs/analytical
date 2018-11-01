@@ -30,6 +30,8 @@ Example
     analytical.pageview({
         'dl': 'https://example.com',
         'dt': 'My Page Title',
+        'ua': 'user-agent',             # User agent
+        'uip: '12.34.56.78',            # User IP address
     })
 
 
@@ -37,5 +39,5 @@ Resources
 ---------
 
 * GitHub: https://github.com/rtfd/analytical
-* Documentation: TBD
+* Documentation: https://analytical.readthedocs.io
 * IRC: #readthedocs on freenode
