@@ -14,7 +14,7 @@ pylint<2.2; python_version > '3'
 pre-commit==1.12.0
 
 # Code style
-black==18.9b0; python_version > '3'
+black==18.9b0; python_version >= '3.6'
 reorder-python-imports==1.3.2
 
 # Releasing
