@@ -3,7 +3,6 @@ python:
   - 2.7
   - 3.5
   - 3.6
-  - 3.7
 sudo: false
 cache:
   directories:
@@ -12,3 +11,16 @@ install:
   - pip install tox-travis
 script:
   - tox
+matrix:
+  include:
+    # 3.7 is not yet supported on Travis
+    - python: 3.6
+      env: TOXENV=lint
+    - python: 3.6
+      env: TOXENV=py36
+    - python: 3.5
+      env: TOXENV=py35
+    - python: 2.7
+      env: TOXENV=py27
+    - python: pypy
+      env: TOXENV=pypy
