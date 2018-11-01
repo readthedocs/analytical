@@ -1,0 +1,29 @@
+strictness: medium
+
+test-warnings: true
+doc-warnings: true
+
+ignore-paths:
+  - docs/
+  - tests/
+
+pep8:
+  # All issues of style are handled by Black
+  none: true
+
+pylint:
+  disable:
+    # This is needed to maintain python2/3 compatibility
+    - useless-object-inheritance
+  options:
+    docstring-min-length: 20
+    dummy-variables-rgx: '_$|__$|dummy'
+
+mccabe:
+  run: true
+
+pep257:
+  run: true
+  disable:
+    - D211  # Conflicts with D203
+    - D212  # Multi-line docstring summary should start at the first line
