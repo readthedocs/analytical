@@ -18,7 +18,6 @@ Tracking pageviews
     ga.pageview({
         "ua": "user-agent",             # User agent
         "uip": "12.34.56.78",           # User IP address
-        "cid": generate_client_id(),    # A client ID for tracking new vs. returning
         "dl": "https://example.com",    # URL of the pageview (required)
         "dt": "page title",             # Title of the page
     })
@@ -39,7 +38,6 @@ Tracking events
     ga.event({
         "ua": "user-agent",
         "uip": "12.34.56.78",
-        "cid": generate_client_id(),
         "ec": "event-category",         # Event category (required)
         "ea": "event-action",           # Event action (required)
         "el": "event-label",            # Event label (optional)

@@ -18,10 +18,11 @@ class GoogleAnalyticsTests(unittest.TestCase):
         params = {
             "ua": "user-agent",
             "uip": "12.34.56.78",
+            "cid": "12345678",
             "ec": "event-category",
             "ea": "event-action",
             "el": "event-label",
-            "ev": "event-value",
+            "ev": "0",
         }
         result = self.ga.event(params)
 
@@ -33,6 +34,7 @@ class GoogleAnalyticsTests(unittest.TestCase):
         params = {
             "ua": "user-agent",
             "uip": "12.34.56.78",
+            "cid": "12345678",
             "dl": "https://example.com",
             "dt": "page title",
         }

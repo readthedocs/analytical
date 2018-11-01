@@ -83,6 +83,9 @@ class Provider(BaseProvider):
         data_to_send["t"] = hit_type
         data_to_send.update(params)
 
+        if "cid" not in data_to_send and "uid" not in data_to_send:
+            data_to_send["cid"] = generate_client_id()
+
         return self._send(data_to_send)
 
 
