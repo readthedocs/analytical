@@ -7,8 +7,7 @@ import hashlib
 import logging
 import uuid
 
-import requests
-
+from ..tasks import send_analytics_data
 from ..utils import force_bytes
 from .base import BaseProvider
 
@@ -29,38 +28,39 @@ class Provider(BaseProvider):
     DEFAULT_DATA = {"v": "1"}  # analytics version (always 1)
 
     def __init__(
-        self, initial_data, timeout=DEFAULT_TIMEOUT, fail_silently=True, **kwargs
+        self,
+        initial_data,
+        timeout=DEFAULT_TIMEOUT,
+        fail_silently=True,
+        asynchronously=False,
+        **kwargs
     ):
         """
         Initialize the Google Analytics provider
 
-        :param initial_data str: for this provider, this should be the property ID (eg. UA-XXXXX-Y)
-        :param timeout int: the timeout in seconds when sending
-        :param fail_silently bool: whether to fail silently (warnings are logged)
+        :param str initial_data: for this provider, this should be the property ID (eg. UA-XXXXX-Y)
+        :param int timeout: the timeout in seconds when sending
+        :param bool fail_silently: whether to fail silently (warnings are logged)
+        :param bool asynchronously: whether to send data asynchronously with celery
         """
         super(Provider, self).__init__(initial_data, **kwargs)
         self.timeout = timeout
         self.fail_silently = fail_silently
         self.property_id = initial_data
+        self.asynchronously = asynchronously
 
     def _send(self, params):
-        log.debug("Sending hit to Google Analytics, %s", params)
-        try:
-            resp = requests.post(
-                self.ANALYTICS_API_URL, data=params, timeout=self.timeout
-            )
-        except requests.Timeout:
-            log.warning("Timeout sending to Google Analytics")
-            if not self.fail_silently:
-                raise
-            return False
+        kwargs = {
+            "url": self.ANALYTICS_API_URL,
+            "data": params,
+            "method": "POST",
+            "timeout": self.timeout,
+            "fail_silently": self.fail_silently,
+        }
+        if self.asynchronously:
+            return send_analytics_data.delay(**kwargs)
 
-        if resp and not resp.ok:
-            log.warning("Unknown error sending to Google Analytics")
-            if not self.fail_silently:
-                resp.raise_for_status()
-            return False
-        return True
+        return send_analytics_data.run(**kwargs)
 
     def pageview(self, params):
         """Tracks a pageview hit with passed ``params``"""

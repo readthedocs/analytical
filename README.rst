@@ -26,8 +26,8 @@ Example
 
     import analytical
 
-    analytical.Provider('googleanalytics', 'UA-XXXXXXX-1')
-    analytical.pageview({
+    provider = analytical.Provider('googleanalytics', 'UA-XXXXXXX-1')
+    provider.pageview({
         'dl': 'https://example.com',
         'dt': 'My Page Title',
         'ua': 'user-agent',             # User agent

@@ -1,4 +1,5 @@
 # Library itself
+celery
 requests
 six
 user-agents<1.2.0

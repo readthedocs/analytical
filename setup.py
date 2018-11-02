@@ -30,7 +30,7 @@ setup(
     author_email="dev@readthedocs.org",
     url="http://github.com/rtfd/analytical",
     packages=find_packages(exclude=["tests"]),
-    install_requires=["requests", "six", "user-agents"],
+    install_requires=["requests", "six", "user-agents", "celery"],
     license="MIT",
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*",
     keywords="analytics donottrack privacy",
